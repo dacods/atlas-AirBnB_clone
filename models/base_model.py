@@ -25,7 +25,7 @@ class BaseModel:
         """Function to update the updated_ at attribute with the current datetime"""
         self.updated_at = datetime.now()
 
-    def to_dic(self):
+    def to_dict(self):
         """Function to return the dictionary containing the keys and values"""
         data_dict = self.__dict__.copy()
         data_dict['created_at'] = self.created_at.isoformat()
