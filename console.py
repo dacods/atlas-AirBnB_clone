@@ -20,8 +20,8 @@ class HBNBCommand(cmd.Cmd):
         return (True)
 
     def emptyline(self):
-        """Function to does nothing on an empty line
-        + ENTER"""
+        """Function that does nothing on an empty input
+        line + ENTER"""
         pass
 
 if __name__ == '__main__':
