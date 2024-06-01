@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Defines a module"""
-import json, os, models
+import json, os
+from models.base_model import BaseModel
 
 
 class FileStorage:
