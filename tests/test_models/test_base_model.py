@@ -2,6 +2,7 @@
 import sys
 import os
 import unittest
+from time import sleep
 from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from models.base_model import BaseModel
@@ -24,10 +25,12 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save(self):
         model = BaseModel()
-        created_at = model.created_at
+        initial_updated_at = model.updated_at
+        sleep(0.1) 
         model.save()
-        updated_at = model.updated_at
-        self.assertNotEqual(created_at, updated_at)
+        new_updated_at = model.updated_at
+        self.assertNotEqual(initial_updated_at, new_updated_at)
+        self.assertTrue(new_updated_at > initial_updated_at)
 
     def test_to_dict(self):
         model = BaseModel()
