@@ -40,7 +40,6 @@ class FileStorage:
 
     def classes(self):
         """Returns dictionary of class instances"""
-
         from models.base_model import BaseModel
         from models.user import User
         from models.state import State
@@ -60,7 +59,6 @@ class FileStorage:
 
     def attributes(self):
         """Returns class instances and their attributes"""
-
         attributes = {
             "BaseModel":
                      {"id": str,

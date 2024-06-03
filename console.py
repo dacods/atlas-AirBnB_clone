@@ -32,7 +32,8 @@ class HBNBCommand(cmd.Cmd):
         elif command_arg not in storage.classes():
             print("** class doesn't exist **")
         else:
-            obj = storage.classes()
+            cls = storage.classes()[command_arg]
+            obj = cls()
             obj.save()
             print(obj.id)
 
@@ -44,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
             return
         
         parts = command_arg.split(' ')
-        if part[0] not in storage.classes():
+        if parts[0] not in storage.classes():
             print("** class doesn't exist **")
         
         if len(parts) < 2:
