@@ -7,6 +7,7 @@ from datetime import datetime
 from models.base_model import BaseModel
 
 
+
 class FileStorage:
     """Defines a class"""
     __file_path = "file.json"
