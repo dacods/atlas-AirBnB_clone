@@ -29,8 +29,10 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance of BaseModel"""
         if command_arg == "" or command_arg is None:
             print("** class name missing **")
+            return
         elif command_arg not in storage.classes():
             print("** class doesn't exist **")
+            return
         else:
             cls = storage.classes()[command_arg]
             obj = cls()
@@ -47,14 +49,18 @@ class HBNBCommand(cmd.Cmd):
         parts = command_arg.split(' ')
         if parts[0] not in storage.classes():
             print("** class doesn't exist **")
+            return
         
         if len(parts) < 2:
             print("** instance id missing **")
             return
         
         insta_key = "{}.{}".format(parts[0], parts[1])
-        insta_key = storage.all().get(insta_key)
-        print(insta_key or "** no instance found **")
+        instance = storage.all().get(insta_key)
+        if instance:
+            print(instance)
+        else:
+            print("** no instance found")
 
     def do_destroy(self, command_arg):
         """Delete an instance based on the class name and id"""
