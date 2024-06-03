@@ -3,6 +3,7 @@
 
 
 import cmd
+from models import *
 
 
 class HBNBCommand(cmd.Cmd):
@@ -23,6 +24,36 @@ class HBNBCommand(cmd.Cmd):
         """Function that does nothing on an empty input
         line + ENTER"""
         pass
+
+    def do_create(self, command_arg):
+        """Creates a new instance of BaseModel"""
+        if command_arg == "" or command_arg is None:
+            print("** class name missing **")
+        elif command_arg not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            obj = storage.classes()
+            obj.save()
+            print(obj.id)
+
+    def do_show(self, command_arg):
+        """Prints the string rep of an instance based on
+        the class name and id"""
+        if not command_arg:
+            print("** class name missing **")
+            return
+        
+        parts = command_arg.split(' ')
+        if part[0] not in storage.classes():
+            print("** class doesn't exist **")
+        
+        if len(parts) < 2:
+            print("** instance id missing **")
+            return
+        
+        insta_key = "{}.{}".format(parts[0], parts[1])
+        insta_key = storage.all().get(insta_key)
+        print(insta_key or "** no instance found **")
 
 
 if __name__ == '__main__':
