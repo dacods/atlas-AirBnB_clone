@@ -103,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
             return
         if len(parts) < 4:
-            print(" value missing **")
+            print("** value missing **")
             return
         key = f"{parts[0]}.{parts[1]}"
         obj = storage.all().get(key)
