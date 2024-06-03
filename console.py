@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             objs = [str(obj) for key, obj in storage.all().items()
-                    if key.startswitch(command_arg)]
+                    if key.startswith(command_arg)]
         else:
             objs = [str(obj) for obj in storage.all().values()]
         print(objs)
