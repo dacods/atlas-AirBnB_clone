@@ -17,7 +17,7 @@ class Test_state(unittest.TestCase):
     def test_fake_state(self):
         self.state.name = "Faker"
         self.assertEqual(self.state.name, "Faker")
-        self.assertNotEqual(self.state.name, "Faker")
+        self.assertNotEqual(self.state.name, "faker")
         
 if __name__ == "__main__":
     unittest.main()
