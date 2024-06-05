@@ -9,14 +9,14 @@ from models.user import User
 class TestUserModel(unittest.TestCase):
     """Class to test User Model"""
     def setUp(self):
-        self.user = User()
+        self.user = User(email="airbnb@mail.com", password="password", first_name="First_name", last_name="Bar")
 
     def test_user(self):
         """Testing initialization of User instance"""
         self.assertIsInstance(self.user, User)
-        self.assertTrue(hasattr(self.user, "airbnb@mail.com"))
-        self.assertTrue(hasattr(self.user, "root"))
-        self.assertTrue(hasattr(self.user, "Betty"))
+        self.assertTrue(hasattr(self.user, "email"))
+        self.assertTrue(hasattr(self.user, "password"))
+        self.assertTrue(hasattr(self.user, "First_name"))
         self.assertTrue(hasattr(self.user, "Bar"))
         self.assertEqual(self.user.email, "")
         self.assertEqual(self.user.password, "")
