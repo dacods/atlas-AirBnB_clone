@@ -262,82 +262,87 @@ class HBNBCommand(cmd.Cmd):
             objs = [str(obj) for obj in storage.all().values()]
         print(objs)
 
-    def do_count(self, command_arg):
-        """Count the number of instances of a class"""
+    def do_show(self, command_arg):
+        """Show instance by ID"""
         if not command_arg:
             print("** class name missing **")
-            return
-        if command_arg not in storage.classes():
-            print("** class doesn't exist **")
-            return
-        count = sum(1 for obj in storage.all().values()
-                    if type(obj).__name__ == command_arg)
-        print(count)
+        return
+    
+    parts = command_arg.split(' ')
+    if parts[0] not in storage.classes():
+        print("** class doesn't exist **")
+        return
 
-    def do_show(self, command_arg):
-        """Retrieve an instance based on its ID"""
-        args = command_arg.split()
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        if args[0] not in storage.classes():
-            print("** class doesn't exist **")
-            return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
-        key = "{}.{}".format(args[0], args[1])
-        all_objs = storage.all()
-        if key not in all_objs:
-            print("** no instance found **")
-            return
-        print(all_objs[key])
+    if len(parts) < 2:
+        print("** instance id missing **")
+        return
 
-    def do_destroy(self, command_arg):
-        """Deletes an instance based on the class name and id"""
-        args = command_arg.split()
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        if args[0] not in storage.classes():
-            print("** class doesn't exist **")
-            return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
-        key = "{}.{}".format(args[0], args[1])
-        all_objs = storage.all()
-        if key not in all_objs:
-            print("** no instance found **")
-            return
-        del all_objs[key]
-        storage.save()
+    insta_key = "{}.{}".format(parts[0], parts[1])
+    instance = storage.all().get(insta_key)
+    if instance:
+        print(instance)
+    else:
+        print("** no instance found **")
 
-    def do_update(self, command_arg):
-        """Updates an instance based on the class name and id"""
-        args = command_arg.split()
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        if args[0] not in storage.classes():
-            print("** class doesn't exist **")
-            return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
-        key = "{}.{}".format(args[0], args[1])
-        all_objs = storage.all()
-        if key not in all_objs:
-            print("** no instance found **")
-            return
-        if len(args) == 2:
-            print("** attribute name missing **")
-            return
-        if len(args) == 3:
-            print("** value missing **")
-            return
-        setattr(all_objs[key], args[2], args[3])
-        storage.save()
+def do_destroy(self, command_arg):
+    """Destroy instance by ID"""
+    if not command_arg:
+        print("** class name missing **")
+        return
+
+    parts = command_arg.split(' ')
+    if parts[0] not in storage.classes():
+        print("** class doesn't exist **")
+        return
+
+    if len(parts) < 2:
+        print("** instance id missing **")
+        return
+
+    insta_key = "{}.{}".format(parts[0], parts[1])
+    if insta_key not in storage.all():
+        print("** no instance found **")
+        return
+
+    del storage.all()[insta_key]
+    storage.save()
+
+def do_update_from_dict(self, command_arg):
+    """Update instance from dictionary by ID"""
+    if not command_arg:
+        print("** class name missing **")
+        return
+
+    parts = command_arg.split(' ')
+    if parts[0] not in storage.classes():
+        print("** class doesn't exist **")
+        return
+
+    if len(parts) < 2:
+        print("** instance id missing **")
+        return
+
+    if len(parts) < 3:
+        print("** dictionary missing **")
+        return
+
+    insta_key = "{}.{}".format(parts[0], parts[1])
+    obj = storage.all().get(insta_key)
+    if not obj:
+        print("** no instance found **")
+        return
+
+    try:
+        data_dict = eval(parts[2])
+    except Exception as e:
+        print("** invalid dictionary **")
+        return
+
+    for key, value in data_dict.items():
+        setattr(obj, key, value)
+    obj.save()
+
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
