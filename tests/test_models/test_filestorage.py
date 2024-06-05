@@ -33,7 +33,7 @@ class Test_filestorage(unittest.TestCase):
 
     def test_new_and_all(self):
         new_obj = BaseModel()
-        tmp_storage = FileStorage
+        tmp_storage = FileStorage()
         tmp_storage.new(new_obj)
         all_obj = tmp_storage.all()
         obj_key = f"{new_obj.__class__.__name__}.{new_obj.id}"
