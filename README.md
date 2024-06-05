@@ -77,9 +77,9 @@ $ echo "python3 -m unittest discover tests" | bash
 
 ## Authors and Acknowledgments
 
-- LJ Thao 
-- Dacoda Takagi 
-- Charles Johnson
+* `LJ Thao`
+* `Dacoda Takagi` 
+* `Charles Johnson`
 
 ![HBHB logo](https://github.com/LJThao/atlas-AirBnB_clone/blob/main/airbnb.png)
 
